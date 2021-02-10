@@ -47,14 +47,14 @@ function preload ()
     this.load.image('ground', 'assets/platform.png');
     this.load.image('star', 'assets/star.png');
     this.load.image('bomb', 'assets/bomb.png');
-    this.load.image('icon', 'assets/07a.jpg')
+    this.load.image('weepingduo', 'assets/07a.jpg')
     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
 }
 
 function create ()
 {
     //  A simple background for our game
-    this.add.image(300, 450, 'icon');
+    this.add.image(300, 450, 'weepingduo');
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = this.physics.add.staticGroup();
@@ -114,7 +114,7 @@ function create ()
     stars.children.iterate(function (child) {
 
         //  Give each star a slightly different bounce
-        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+        child.setBounceY(Phaser.Math.FloatBetween(0.8, 1.2));
 
     });
 
@@ -134,7 +134,7 @@ function create ()
     this.physics.add.collider(player, bombs, hitBomb, null, this);
 
     // Create a sprite at the center of the screen using the 'logo' image.
-    this.bouncy = this.physics.add.sprite( this.cameras.main.centerX, this.cameras.main.centerX, 'bomb' );
+    this.bouncy = this.physics.add.sprite( this.cameras.main.centerX, this.cameras.main.centerX, 'icon' );
 
     // Make it bounce off of the world bounds.
     this.bouncy.body.collideWorldBounds = true;
@@ -194,7 +194,7 @@ function collectStar (player, star)
     score += 1;
     scoreText.setText('Score: ' + score);
 
-    if (stars.countActive(true) === 0)
+    if (stars.countActive(true) <= 1)
     {
         //  A new batch of stars to collect
         stars.children.iterate(function (child) {
