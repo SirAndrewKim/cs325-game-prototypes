@@ -61,7 +61,7 @@ function create ()
 
     //  Here we create the ground.
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    platforms.create(400, 950, 'ground').setScale(2).refreshBody();
+    platforms.create(400, 945, 'ground').setScale(2).refreshBody();
 
     //  Now let's create some ledges
     platforms.create(650, 100, 'ground').setScale(0.5).refreshBody();
@@ -114,7 +114,7 @@ function create ()
     stars.children.iterate(function (child) {
 
         //  Give each star a slightly different bounce
-        child.setBounceY(Phaser.Math.FloatBetween(0.8, 1.2));
+        child.setBounceY(Phaser.Math.FloatBetween(0.6, 1));
 
     });
 
@@ -194,7 +194,7 @@ function collectStar (player, star)
     score += 1;
     scoreText.setText('Score: ' + score);
 
-    if (stars.countActive(true) <= 1)
+    if (stars.countActive(true) <= 5)
     {
         //  A new batch of stars to collect
         stars.children.iterate(function (child) {
