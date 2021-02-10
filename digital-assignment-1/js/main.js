@@ -13,8 +13,9 @@ import "./phaser.js";
 
 var config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    parent: 'game',
+    width: 600,
+    height: 920,
     physics: {
         default: 'arcade',
         arcade: {
@@ -42,29 +43,35 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('sky', 'digital-assignment-1\assets\sky.png');
-    this.load.image('ground', 'digital-assignment-1\assets\platform.png');
-    this.load.image('star', 'digital-assignment-1\assets\star.png');
-    this.load.image('bomb', 'digital-assignment-1\assets\bomb.png');
-    this.load.spritesheet('dude', 'digital-assignment-1\assets\dude.png', { frameWidth: 32, frameHeight: 48 });
+    //this.load.image('sky', 'assets/sky.png');
+    this.load.image('ground', 'assets/platform.png');
+    this.load.image('star', 'assets/star.png');
+    this.load.image('bomb', 'assets/bomb.png');
+    this.load.image('icon', 'assets/07a.jpg')
+    this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
 }
 
 function create ()
 {
     //  A simple background for our game
-    this.add.image(400, 300, 'sky');
+    this.add.image(300, 450, 'icon');
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = this.physics.add.staticGroup();
 
     //  Here we create the ground.
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+    platforms.create(400, 950, 'ground').setScale(2).refreshBody();
 
     //  Now let's create some ledges
-    platforms.create(600, 400, 'ground');
-    platforms.create(50, 250, 'ground');
-    platforms.create(750, 220, 'ground');
+    platforms.create(650, 100, 'ground').setScale(0.5).refreshBody();
+    platforms.create(550, 270, 'ground').setScale(0.5).refreshBody();
+    platforms.create(10, 300, 'ground').setScale(0.5).refreshBody();
+    platforms.create(250, 450, 'ground').setScale(0.5).refreshBody();
+    platforms.create(150, 620, 'ground').setScale(0.5).refreshBody();
+    platforms.create(650, 620, 'ground').setScale(0.5).refreshBody();
+    platforms.create(10, 750, 'ground').setScale(0.5).refreshBody();
+    platforms.create(550, 790, 'ground').setScale(0.5).refreshBody();
 
     // The player and its settings
     player = this.physics.add.sprite(100, 450, 'dude');
@@ -100,8 +107,8 @@ function create ()
     //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
     stars = this.physics.add.group({
         key: 'star',
-        repeat: 11,
-        setXY: { x: 12, y: 0, stepX: 70 }
+        repeat: 20,
+        setXY: { x: 12, y: 0, stepX: 30 }
     });
 
     stars.children.iterate(function (child) {
@@ -114,7 +121,7 @@ function create ()
     bombs = this.physics.add.group();
 
     //  The score
-    scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    scoreText = this.add.text(16, 8, 'score: 0', { fontSize: '32px', fill: '#000' });
 
     //  Collide the player and the stars with the platforms
     this.physics.add.collider(player, platforms);
@@ -125,6 +132,19 @@ function create ()
     this.physics.add.overlap(player, stars, collectStar, null, this);
 
     this.physics.add.collider(player, bombs, hitBomb, null, this);
+
+    // Create a sprite at the center of the screen using the 'logo' image.
+    this.bouncy = this.physics.add.sprite( this.cameras.main.centerX, this.cameras.main.centerX, 'bomb' );
+
+    // Make it bounce off of the world bounds.
+    this.bouncy.body.collideWorldBounds = true;
+        
+    // Make the camera shake when clicking/tapping on it.
+    this.bouncy.setInteractive();
+    this.bouncy.on( 'pointerdown', function( pointer ) {
+        this.scene.cameras.main.shake(500);
+        });
+    
 }
 
 function update ()
@@ -157,6 +177,13 @@ function update ()
     {
         player.setVelocityY(-330);
     }
+
+    // Accelerate the 'logo' sprite towards the cursor,
+    // accelerating at 500 pixels/second and moving no faster than 500 pixels/second
+    // in X or Y.
+    // This function returns the rotation angle that makes it visually match its
+    // new trajectory.
+    this.bouncy.rotation = this.physics.accelerateToObject( this.bouncy, this.input.activePointer, 500, 500, 500 );
 }
 
 function collectStar (player, star)
@@ -164,7 +191,7 @@ function collectStar (player, star)
     star.disableBody(true, true);
 
     //  Add and update the score
-    score += 10;
+    score += 1;
     scoreText.setText('Score: ' + score);
 
     if (stars.countActive(true) === 0)
@@ -190,7 +217,7 @@ function hitBomb (player, bomb)
 {
     this.physics.pause();
 
-    player.setTint(0xff0000);
+    player.setTint(0x000000);
 
     player.anims.play('turn');
 
