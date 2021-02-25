@@ -66,8 +66,7 @@ var Flood = new Phaser.Class({
 
     create: function ()
     {
-        //this.add.image(400, 300, 'flood', 'background');
-        //this.gridBG = this.add.image(400, 600 + 300, 'flood', 'grid');
+
         this.add.image(400, 300, 'background');
 
         this.music = this.sound.add('bgm', {volume: 0.2}); 
@@ -710,7 +709,6 @@ var Flood = new Phaser.Class({
         this.stopInputEvents();
 
         this.text1.setText("Won!!");
-        this.text2.setText(':)');
 
         var i = this.clearGrid();
 
