@@ -61,6 +61,7 @@ var Flood = new Phaser.Class({
         this.load.bitmapFont('atari', 'assets/atari-smooth.png', 'assets/atari-smooth.xml');
         this.load.atlas('flood', 'assets/blobs3.png', 'assets/blobs.json');
         this.load.image('background', 'assets/pirate-ship.jpg');
+        this.load.audio('bgm', 'assets/Pirate.mp3')
     },
 
     create: function ()
@@ -68,6 +69,9 @@ var Flood = new Phaser.Class({
         //this.add.image(400, 300, 'flood', 'background');
         //this.gridBG = this.add.image(400, 600 + 300, 'flood', 'grid');
         this.add.image(400, 300, 'background');
+
+        this.music = this.sound.add('bgm', {volume: 0.2}); 
+        this.music.play();
 
         this.createIcon(this.icon1, 'grey', 16, 156);
         this.createIcon(this.icon2, 'red', 16, 312);
@@ -135,6 +139,7 @@ var Flood = new Phaser.Class({
 
     },
 
+    //Trying to create a reset function
     reset: function()
     {
 
@@ -396,13 +401,9 @@ var Flood = new Phaser.Class({
 
     onIconOut: function (pointer, gameObject)
     {
-        // console.log(this.monsterTween.targets[0].y);
-
         this.monsterTween.stop(0);
 		
 		gameObject.getData('monster').setY(gameObject.y);
-
-        // console.log(this.monsterTween.targets[0].y);
 
         this.cursorTween = this.tweens.add({
             targets: this.cursor,
@@ -431,8 +432,6 @@ var Flood = new Phaser.Class({
         }
 
         var oldColor = this.grid[0][0].getData('color');
-
-        // console.log('starting flood from', oldColor, this.frames[oldColor], 'to', newColor, this.frames[newColor]);
 
         if (oldColor !== newColor)
         {
@@ -600,7 +599,7 @@ var Flood = new Phaser.Class({
         this.stopInputEvents();
 
         this.text1.setText("Lost!");
-        this.text2.setText(':(');
+        this.text2.setText('Try Again!');
 
         var i = this.clearGrid();
 
