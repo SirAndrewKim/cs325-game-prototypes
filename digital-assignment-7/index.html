@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Physics Sucks!</title>
+<style>
+body
+{
+    color: #777;
+    font-family: "Avenir", Verdana, sans-serif;
+}
+#readme
+{
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+<div id="game"></div>
+<div id="readme">
+<h2>Don't Jump 2</h2>
+
+<ul>
+<li><strong>Originality:</strong>
+The original concept of the game is to cross the void without jumping.
+</li>
+
+<li><strong>Technical Merit:</strong>
+I wanted to make it so that you have multiple ways to cross the void without jumping.
+</li>
+
+<li><strong>Prototype Postmortem:</strong>
+Lots of physics stuff. Finally got the clouds to work! Now that I finished, it was a really simple change.
+<br> It just took a lot more thinking on how to get the tweens to work.
+</li>
+
+<li><strong>Prototype Assets:</strong>
+Did you make your prototype assets from scratch? Did you borrow them? Cite your sources here.
+<ul>
+<li>Everything from: <a href="http://phaser.io/tutorials/making-your-first-phaser-3-game/part1">My first game</a></li>
+</ul>
+</li>
+
+<li><strong>Prototype Closest Other Game:</strong>
+My first game and a tutorial from phaser https://phaser.io/tutorials/coding-tips-004
+<br> I wanted to add clouds to the game that enabled the character to ride clouds as another method to cross the void. However, when adding more and more 
+<br> the game continued to break. My lack of knowledge of javascript and phaser is more the reasoning. But I am trying to figure it out.
+</li>
+
+<li><strong>High Concept:</strong>
+Find out ways to cross the void without jumping!
+</li>
+
+<li><strong>Theme:</strong>
+Reaching the other side to obtain the rest of the stars to complete the level.
+</li>
+
+<li><strong>Mandated Variety:</strong>
+Keyboard input. Collector
+</li>
+
+<li><strong>Prototype Goal:</strong>
+Having the player find ways to collect stars without jumping. There are multiple ways to cross the void.
+<br> Figuring out how to do this is the main point of the game. Where one option is obvious. The others are not.
+</li>
+
+<li><strong>Player Experience Goals:</strong>
+Thinking outside the box.
+</li>
+
+<li><strong>Gameplay:</strong>
+The original idea for this was to have the player cross the void without jumping. Giving the player multiple options to be able to cross would be the main concept.
+<br> I got help from classmates from a previous breakout session on how to implement the character being able to walk in an infinite loop. However, it seems to have broken.
+<br> Figuring out different ways to cross the small void is the main goal. If you get stuck in the void, the only way to reset is by refreshing the page.
+<br> Collecting 4 stars is the current victory condition, but in a different iteration. I would like to make this number much higher with a lot more stars in different places.
+</li>
+
+<li><strong>Strategies:</strong>
+Moving to the left directly pushes you to the final star on the right side.
+<br>Sitting on the first cloud to drive you across the void is another way to win.
+<br>Function I am still trying to figure out, left clicking on the mouse, will teleport the player sprite
+<br>To the mouse curor location. However, this did not work and broke the game, so I took it out for now.
+</li>
+
+<li><strong>Story/Setting/Premise:</strong>
+A paragraph about the world your game is set in and who the characters are. What makes the game world and its occupants unique and interesting? Do the tokens represent something? If the game has a backstory, mention it here. If the game is abstract, then say so.
+How will the dramatic tension interact with the gameplay tension?
+</li>
+
+<li><strong>Target Audience:</strong>
+E for Everyone
+</li>
+
+<li><strong>Play Time:</strong>
+A few seconds at the current iteration. Hoping to expand ways for the next run.
+</li>
+
+</ul>
+</div>
+
+<!-- main.js must come at the end since it expects the HTML to have been created. -->
+<script src="js/main.js" type="module"></script>
+</body>
+</html>
