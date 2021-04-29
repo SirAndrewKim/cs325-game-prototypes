@@ -30,17 +30,17 @@ var config = {
   },
 };
 
-var rolls = 10;
-var rolls1 = 10;
+var rolls = 5;
+var rolls1 = 5;
 var rolled = false;
 var rolled1 = false;
 var rollText;
 var rollText1;
-var temp;
-var temp1;
-let text;
-var cursors;
-var gameOver = false;
+var rollSum = 0;
+var rollSum1 = 0;
+var rollSumTest;
+var rollSumTest1;
+var text;
 
 var game = new Phaser.Game(config);
 
@@ -61,22 +61,38 @@ function preload() {
   this.load.image("a4", "assets/die4.jpg");
   this.load.image("a5", "assets/die5.jpg");
   this.load.image("a6", "assets/die6.jpg");
+
+  this.load.image("playmat", "assets/playmat.jpg");
+
+  this.load.audio("bgm", "assets/yugiohbgm.mp3");
 }
 
 function create() {
 
-  //reset button
+  this.add.image(520, 500, "playmat");
+
+  this.music = this.sound.add('bgm', {volume: 0.2}); 
+  this.music.play();
+
   this.reset = this.input.keyboard.addKey("SPACE");
 
-  cursors = this.input.keyboard.createCursorKeys();
-
-  rollText = this.add.text(600, 1035, "rolls: " + rolls, {
+  rollText = this.add.text(600, 1035, "rolls left: " + rolls, {
     fontSize: "32px",
     fill: "#FFF",
   });
 
-  rollText1 = this.add.text(600, 105, "rolls: " + rolls1, {
+  rollText1 = this.add.text(600, 105, "rolls left: " + rolls1, {
     fontSize: "32px",
+    fill: "#FFF",
+  });
+
+  rollSumTest = this.add.text(325, 805, "Sum: " + rollSum, {
+    fontSize: "64px",
+    fill: "#FFF",
+  });
+
+  rollSumTest1 = this.add.text(325, 305, "Sum: " + rollSum1, {
+    fontSize: "64px",
     fill: "#FFF",
   });
 
@@ -95,7 +111,7 @@ function create() {
 function update() {
   if (this.reset.isDown) {
     this.scene.restart();
-    rolls = 3;
+    rolls = 5;
   }
 
   if (rolled == true && rolls > 0) {
@@ -135,6 +151,12 @@ function update() {
     }
     rolled1 = false;
   }
+
+  rollSum = rng + rng;
+  rollSumTest.setText("Sum: " + rollSum);
+
+  rollSum1 = rng1 + rng1;
+  rollSumTest1.setText("Sum: " + rollSum1);
 }
 
 function rollCount() {
@@ -143,9 +165,8 @@ function rollCount() {
   if (rolls == 0) {
     rollText.setText("Rolls: None");
   } else if (rolls > 0) {
-    rollText.setText("Rolls: " + rolls);
+    rollText.setText("Rolls left: " + rolls);
   }
-  temp.setText();
 }
 
 function rollCount1() {
@@ -154,7 +175,6 @@ function rollCount1() {
   if (rolls1 == 0) {
     rollText1.setText("Rolls: None");
   } else if (rolls1 > 0) {
-    rollText1.setText("Rolls: " + rolls1);
+    rollText1.setText("Rolls left: " + rolls1);
   }
-  temp1.setText();
 }
